@@ -1,15 +1,17 @@
-def count_characters_in_file(file_path):
-    try:
-        with open(file_path, 'r', encoding='utf-8') as file:
-            content = file.read()  # Read the whole file into a string
-            return len(content)    # Count the number of characters in the string
-    except FileNotFoundError:
-        return "The file does not exist"
-    except Exception as e:
-        return f"An error occurred: {e}"
 
-# Example usage
-file_path = '../data/jsons/Verifiable_Internet_for_Artificial_Intelligence_whitepaper.json'  # Adjust this to your file's location
-character_count = count_characters_in_file(file_path)
-print(f"The file contains {character_count} characters.")
+import os
+import json
+from dotenv import load_dotenv
+from unstructured_client import UnstructuredClient
+from unstructured_client.models import shared
+from unstructured_client.models.errors import SDKError
 
+
+def load_config():
+    """Load environment variables for API configuration."""
+    load_dotenv()
+    api_key = os.getenv('UNSTRUCTURED_API')
+    unstructured_url = os.getenv('UNSTRUCTURED_URL')
+    return api_key, unstructured_url
+
+print(load_config())
